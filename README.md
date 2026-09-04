@@ -38,16 +38,21 @@ All display config below follows from that.
 
 ```
 scripts/
-  00-base.sh        essentials, purge snap/flatpak, old-kernel cleanup
+  00-base.sh        essentials, Firefox (Mozilla apt), purge snap/flatpak
   01-nvidia.sh      driver 610 + all display configs (idempotent)
   02-ml.sh          CUDA PATH + ~/ml venv + PyTorch
   03-dgx-docker.sh  Docker CE + NVIDIA Container Toolkit + GPU container test
   04-gaming.sh       Steam (official .deb) + gamemode + mangohud + Vulkan
   05-jetbrains.sh   JetBrains Toolbox (official tarball, self-contained)
-  06-devtools.sh    gh CLI (apt) + Node.js (NodeSource)
+  06-devtools.sh    gh CLI (apt) + Node.js (NodeSource) + git identity
   07-desktop.sh     lid-close config + KDE dark theme
+  08-kde-desktop.sh Bazzite-style polish: wallpaper, lockscreen, tearing, night color
+  capture-kde-config.sh  snapshot YOUR arranged desktop into the repo
+  apply-kde-config.sh    restore that arrangement on any machine
   verify.sh         PASS/FAIL checklist of the whole machine
 configs/etc/        the exact files applied to /etc (sddm, xorg, modprobe, logind)
+configs/wallpapers/ shipped dark wallpaper (used by desktop + lockscreen)
+configs/kde/        captured KDE settings (created by capture-kde-config.sh)
 ```
 
 ## Fresh-install bootstrap order
@@ -70,6 +75,7 @@ sudo reboot
 ./scripts/04-gaming.sh
 ./scripts/06-devtools.sh
 ./scripts/07-desktop.sh
+./scripts/08-kde-desktop.sh     # inside the session: wallpaper, lockscreen, tearing
 ./scripts/verify.sh
 ./scripts/05-jetbrains.sh   # run inside the desktop session
 ```
@@ -112,6 +118,23 @@ gh auth switch --user iamabhishekt   # if multiple accounts exist
 
 Verify before pushing: `git log --format='%an %ae'` must never show a
 non-personal email. `06-devtools.sh` sets the global identity if unset.
+
+## Desktop polish (Bazzite-style) — the two-step personalization loop
+
+1. `./scripts/08-kde-desktop.sh` applies the baseline: Breeze Dark, dark
+   wallpaper on desktop **and lockscreen**, auto-lock after 10 min +
+   lock-on-suspend, compositor tearing allowed (smoothest fullscreen gaming),
+   Night Color on, numlock at the login screen.
+2. Then arrange the desktop by hand — panel position, pinned taskbar apps,
+   shortcuts, whatever you like — and run:
+
+```bash
+./scripts/capture-kde-config.sh    # snapshots ~/.config KDE files into configs/kde/
+git add -A && git commit -m "kde: capture desktop arrangement" && git push
+```
+
+From then on, `./scripts/apply-kde-config.sh` reproduces your exact desktop
+on any reinstall. Re-capture after any big arrangement change.
 
 ## Manual finishing steps
 

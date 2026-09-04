@@ -11,6 +11,16 @@ sudo apt update
 sudo apt install -y build-essential git curl wget tmux htop nvtop jq unzip \
     mesa-utils python3-venv python3-pip python3-dev
 
+echo ">>> Firefox from Mozilla's official apt repo (real deb, not snap)"
+curl -fsSL https://packages.mozilla.org/apt/repo-signing-key.gpg \
+    | sudo tee /usr/share/keyrings/mozilla.gpg >/dev/null
+echo "deb [signed-by=/usr/share/keyrings/mozilla.gpg] https://packages.mozilla.org/apt mozilla main" \
+    | sudo tee /etc/apt/sources.list.d/mozilla.list >/dev/null
+printf 'Package: *\nPin: origin packages.mozilla.org\nPin-Priority: 1000\n' \
+    | sudo tee /etc/apt/preferences.d/mozilla-firefox >/dev/null
+sudo apt update
+sudo apt install -y firefox
+
 echo ">>> Cleaning old kernels"
 sudo apt autoremove -y
 
