@@ -55,7 +55,8 @@ scripts/
                      ripgrep, fd, bat, eza, zoxide, delta, lazygit, neovim
   14-ai-agents.sh    claude, codex, kimi, dsh, opencode, cursor-agent, arkcli,
                      ark-helper, qwen, opencli, ccr, bailian, byterover, ...
-  install-deb.sh     install any vendor .deb (Cursor/TRAE/CodeBuddy/ZCode/Warp)
+  15-apps.sh        Homebrew, Google Chrome (apt repo), qBittorrent, Warp
+  install-deb.sh     install any vendor .deb (Cursor/TRAE/CodeBuddy/ZCode)
   capture-kde-config.sh  snapshot YOUR arranged desktop into the repo
   apply-kde-config.sh    restore that arrangement on any machine
   verify.sh         PASS/FAIL checklist of the whole machine
@@ -92,6 +93,7 @@ sudo reboot
 ./scripts/12-distrobox-just.sh
 ./scripts/13-dev-cli.sh          # kitty, zsh+starship, fzf, ripgrep, lazygit...
 ./scripts/14-ai-agents.sh        # claude, codex, kimi, dsh, opencode, arkcli...
+./scripts/15-apps.sh             # brew, chrome, qbittorrent, warp
 ./scripts/verify.sh
 ./scripts/05-jetbrains.sh   # run inside the desktop session
 # optional / experimental:
@@ -119,7 +121,6 @@ GUI IDEs have no apt repo — download the Linux .deb from each vendor and:
 | TRAE / TRAE SOLO | trae.ai |
 | CodeBuddy CN | codebuddy.tencent.com (or its download page) |
 | ZCode | vendor site |
-| Warp | warp.dev/download |
 | JetBrains | `05-jetbrains.sh` (Toolbox, then IDEs from its GUI) |
 
 ## CUDA toolkit install (NVIDIA repo, one time)

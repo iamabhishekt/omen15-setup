@@ -51,6 +51,9 @@ cli:
 agents:
     ./scripts/14-ai-agents.sh
 
+apps:
+    ./scripts/15-apps.sh
+
 verify:
     ./scripts/verify.sh
 

@@ -13,7 +13,7 @@ grep -q '/usr/local/cuda/bin' ~/.bashrc || \
 echo ">>> Creating/refreshing ~/ml venv"
 python3 -m venv ~/ml
 ~/ml/bin/pip install --upgrade pip
-~/ml/bin/pip install torch numpy
+~/ml/bin/pip install torch numpy unsloth
 
 echo ">>> Smoke test"
 ~/ml/bin/python -c "import torch; print('CUDA available:', torch.cuda.is_available()); print(torch.cuda.get_device_name(0))"
