@@ -51,11 +51,17 @@ scripts/
   10-proton-ge.sh       latest GE-Proton into Steam compatibilitytools
   11-gamescope-session.sh  console-like Steam session (experimental)
   12-distrobox-just.sh  distrobox + just
+  13-dev-cli.sh      omarchy-style CLI toolkit: kitty, zsh, starship, fzf,
+                     ripgrep, fd, bat, eza, zoxide, delta, lazygit, neovim
+  14-ai-agents.sh    claude, codex, kimi, dsh, opencode, cursor-agent, arkcli,
+                     ark-helper, qwen, opencli, ccr, bailian, byterover, ...
+  install-deb.sh     install any vendor .deb (Cursor/TRAE/CodeBuddy/ZCode/Warp)
   capture-kde-config.sh  snapshot YOUR arranged desktop into the repo
   apply-kde-config.sh    restore that arrangement on any machine
   verify.sh         PASS/FAIL checklist of the whole machine
 Justfile            `just <recipe>` shortcuts for everything above
 configs/etc/        the exact files applied to /etc (sddm, xorg, modprobe, logind)
+configs/home/       zshrc (starship/zoxide/fzf/aliases)
 configs/wallpapers/ shipped dark wallpaper (used by desktop + lockscreen)
 configs/kde/        captured KDE settings (created by capture-kde-config.sh)
 ```
@@ -84,11 +90,37 @@ sudo reboot
 ./scripts/09-bazzite-gaming.sh  # gamescope, OBS, CoreCtrl, OpenRGB
 ./scripts/10-proton-ge.sh       # GE-Proton into Steam
 ./scripts/12-distrobox-just.sh
+./scripts/13-dev-cli.sh          # kitty, zsh+starship, fzf, ripgrep, lazygit...
+./scripts/14-ai-agents.sh        # claude, codex, kimi, dsh, opencode, arkcli...
 ./scripts/verify.sh
 ./scripts/05-jetbrains.sh   # run inside the desktop session
 # optional / experimental:
 ./scripts/11-gamescope-session.sh   # console-like Steam session at SDDM
 ```
+
+## AI agents & IDEs
+
+CLI agents (`14-ai-agents.sh`, mirrors the reference MacBook): claude, codex,
+kimi (`@moonshot-ai/kimi-code`), dsh (DeepSeek Harness), opencode,
+cursor-agent, arkcli + ark-helper (`arkcli helper`), qwen-code, opencli,
+claude-code-router (ccr), bailian, byterover, mcporter, gitnexus, deckrun,
+ecc-universal, plumb-mcp. `hermes` and `workbuddy` are NOT on the reference
+Mac — add manually if you find installers.
+
+GUI IDEs have no apt repo — download the Linux .deb from each vendor and:
+
+```bash
+./scripts/install-deb.sh ~/Downloads/cursor.deb     # or a URL
+```
+
+| App | Download |
+|---|---|
+| Cursor | cursor.com/download |
+| TRAE / TRAE SOLO | trae.ai |
+| CodeBuddy CN | codebuddy.tencent.com (or its download page) |
+| ZCode | vendor site |
+| Warp | warp.dev/download |
+| JetBrains | `05-jetbrains.sh` (Toolbox, then IDEs from its GUI) |
 
 ## CUDA toolkit install (NVIDIA repo, one time)
 

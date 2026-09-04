@@ -45,6 +45,12 @@ gamescope-session:
 distrobox:
     ./scripts/12-distrobox-just.sh
 
+cli:
+    ./scripts/13-dev-cli.sh
+
+agents:
+    ./scripts/14-ai-agents.sh
+
 verify:
     ./scripts/verify.sh
 

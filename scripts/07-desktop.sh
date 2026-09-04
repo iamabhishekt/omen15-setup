@@ -6,7 +6,9 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 echo ">>> Lid switch: ignore close events system-wide"
 sudo mkdir -p /etc/systemd/logind.conf.d
 sudo cp "$ROOT/configs/etc/systemd/logind.conf.d/99-lid.conf" /etc/systemd/logind.conf.d/
-sudo systemctl restart systemd-logind   # may end your graphical session; re-login is fine
+# NOTE: do NOT restart systemd-logind from a script — on this hybrid-NVIDIA setup
+# it tears down the graphical session and blanks the screen until reboot.
+# The config takes effect at the next boot.
 
 echo ">>> KDE dark theme"
 if command -v lookandfeeltool >/dev/null 2>&1 && [ -n "${DISPLAY:-}${WAYLAND_DISPLAY:-}" ]; then
