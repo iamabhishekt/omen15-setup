@@ -19,5 +19,11 @@ else
     sudo apt install -y nodejs npm
 fi
 
-echo ">>> Authenticate gh:"
+echo ">>> Git identity (personal noreply email — keeps office account out)"
+git config --global user.name  >/dev/null 2>&1 || git config --global user.name  "iamabhishekt"
+git config --global user.email >/dev/null 2>&1 || git config --global user.email "85431526+iamabhishekt@users.noreply.github.com"
+
+echo ">>> Authenticate gh (choose GitHub.com -> HTTPS -> browser):"
 echo ">>>   gh auth login"
+echo ">>> If multiple accounts, activate the personal one:"
+echo ">>>   gh auth switch --user iamabhishekt"

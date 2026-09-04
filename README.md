@@ -86,6 +86,33 @@ for f in /etc/apt/sources.list.d/cuda*.list; do sudo mv "$f" "$f.disabled"; done
 sudo apt update
 ```
 
+## Git identity — keep the office account out
+
+This is a **personal repo**. All commits are authored with the GitHub noreply
+email (`85431526+iamabhishekt@users.noreply.github.com`) so no other email
+can ever leak into history.
+
+On a machine that also has the office git config (like the MacBook), use
+repo-local settings so they override the global office identity:
+
+```bash
+cd omen15-setup
+git config user.name  "iamabhishekt"
+git config user.email "85431526+iamabhishekt@users.noreply.github.com"
+```
+
+On the Omen (personal machine), set it globally instead:
+
+```bash
+git config --global user.name  "iamabhishekt"
+git config --global user.email "85431526+iamabhishekt@users.noreply.github.com"
+gh auth login             # log in as iamabhishekt
+gh auth switch --user iamabhishekt   # if multiple accounts exist
+```
+
+Verify before pushing: `git log --format='%an %ae'` must never show a
+non-personal email. `06-devtools.sh` sets the global identity if unset.
+
 ## Manual finishing steps
 
 - **Steam → Settings → Compatibility → "Enable Steam Play for all other titles"**
