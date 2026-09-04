@@ -47,9 +47,14 @@ scripts/
   06-devtools.sh    gh CLI (apt) + Node.js (NodeSource) + git identity
   07-desktop.sh     lid-close config + KDE dark theme
   08-kde-desktop.sh Bazzite-style polish: wallpaper, lockscreen, tearing, night color
+  09-bazzite-gaming.sh  gamescope, OBS, CoreCtrl, OpenRGB, btop, fastfetch
+  10-proton-ge.sh       latest GE-Proton into Steam compatibilitytools
+  11-gamescope-session.sh  console-like Steam session (experimental)
+  12-distrobox-just.sh  distrobox + just
   capture-kde-config.sh  snapshot YOUR arranged desktop into the repo
   apply-kde-config.sh    restore that arrangement on any machine
   verify.sh         PASS/FAIL checklist of the whole machine
+Justfile            `just <recipe>` shortcuts for everything above
 configs/etc/        the exact files applied to /etc (sddm, xorg, modprobe, logind)
 configs/wallpapers/ shipped dark wallpaper (used by desktop + lockscreen)
 configs/kde/        captured KDE settings (created by capture-kde-config.sh)
@@ -76,8 +81,13 @@ sudo reboot
 ./scripts/06-devtools.sh
 ./scripts/07-desktop.sh
 ./scripts/08-kde-desktop.sh     # inside the session: wallpaper, lockscreen, tearing
+./scripts/09-bazzite-gaming.sh  # gamescope, OBS, CoreCtrl, OpenRGB
+./scripts/10-proton-ge.sh       # GE-Proton into Steam
+./scripts/12-distrobox-just.sh
 ./scripts/verify.sh
 ./scripts/05-jetbrains.sh   # run inside the desktop session
+# optional / experimental:
+./scripts/11-gamescope-session.sh   # console-like Steam session at SDDM
 ```
 
 ## CUDA toolkit install (NVIDIA repo, one time)
@@ -118,6 +128,24 @@ gh auth switch --user iamabhishekt   # if multiple accounts exist
 
 Verify before pushing: `git log --format='%an %ae'` must never show a
 non-personal email. `06-devtools.sh` sets the global identity if unset.
+
+## Bazzite parity map
+
+| Bazzite feature | Here |
+|---|---|
+| Steam + Proton | `04-gaming.sh` (Steam deb, Proton bundled) |
+| Proton GE builds | `10-proton-ge.sh` |
+| Gamescope | `09-bazzite-gaming.sh` (per-game: `gamescope -- %command%`) |
+| Console-like Steam session | `11-gamescope-session.sh` (experimental, own SDDM entry) |
+| GameMode / MangoHud | `04-gaming.sh` (`gamemoderun %command%`, `mangohud %command%`) |
+| OBS Studio | `09-bazzite-gaming.sh` |
+| CoreCtrl hardware control | `09-bazzite-gaming.sh` + polkit rule |
+| OpenRGB | `09-bazzite-gaming.sh` |
+| Distrobox containers | `12-distrobox-just.sh` (docker backend) |
+| `just` recipes | `Justfile` — run `just --list` |
+| fastfetch / btop terminals | `09-bazzite-gaming.sh` |
+| Dark KDE + wallpapers + lockscreen | `08-kde-desktop.sh` |
+| Immutable OS / OSTree updates | N/A — standard apt Ubuntu (`just update`) |
 
 ## Desktop polish (Bazzite-style) — the two-step personalization loop
 
